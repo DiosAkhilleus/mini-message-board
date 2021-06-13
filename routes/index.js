@@ -14,12 +14,22 @@ const messages = [
   }
 ];
 
-
-
+const num = 4
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Mini Messageboard', messages: messages });
+});
+
+router.get('/new', (req, res, next) => {
+  res.render('form', { title: 'New Post', num: num });
+});
+
+router.post('/new', (req, res, next) => {
+  let msgUser = req.body.authName;
+  let msgText = req.body.messageText;
+  messages.push({text: msgText, user: msgUser, added: new Date()});
+  res.redirect('/')
 });
 
 module.exports = router;
